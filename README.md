@@ -16,6 +16,11 @@ mox run deploy
 mox test
 ```
 
+# Goals
+1. Airdrop tokens to X number of accounts
+  - Let people claim via a `claim` function
+2. Not have to store X number of accounts on chain
+  - Use a Merkle tree to store the accounts off chain and verify claims on chain
 
 
 

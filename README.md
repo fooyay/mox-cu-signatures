@@ -21,7 +21,7 @@ mox test
   - Let people claim via a `claim` function
 2. Not have to store X number of accounts on chain
   - Use a Merkle tree to store the accounts off chain and verify claims on chain
-
+3. Update make_merkle.py to python 3.12 syntax and compare output to the existing make_merkle.py to ensure the same output
 
 
 

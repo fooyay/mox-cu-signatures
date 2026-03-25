@@ -1,7 +1,7 @@
 [project]
-name = "moccasin_project"
+name = "Signatures"
 version = "0.1.0"
-description = "Add your description here"
+description = "Use Merkle trees to airdrop tokens to X number of accounts without storing them on chain"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = []

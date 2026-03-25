@@ -1,10 +1,9 @@
 import json
-from typing import Dict, List, Tuple
 
 from eth_abi import encode
 from eth_utils import keccak
 
-DEFAULT_AMOUNT = 25000000000000000000
+DEFAULT_AMOUNT = int(25e18)  # 25 tokens with 18 decimals
 DEFAULT_INPUT = {
     "values": {
         "0": {
@@ -54,7 +53,7 @@ def generate_leaf(address: str, amount: str) -> bytes:
     return keccak(first_hash)
 
 
-def get_merkle_root(leaves: List[bytes]) -> bytes:
+def get_merkle_root(leaves: list[bytes]) -> bytes:
     """Calculate Merkle root from list of leaves."""
     if not leaves:
         return keccak(b"")
@@ -72,7 +71,7 @@ def get_merkle_root(leaves: List[bytes]) -> bytes:
     return layer[0]
 
 
-def get_proof(leaves: List[bytes], index: int) -> List[str]:
+def get_proof(leaves: list[bytes], index: int) -> list[str]:
     """Generate Merkle proof for leaf at given index."""
     if not leaves:
         return []
@@ -98,7 +97,7 @@ def get_proof(leaves: List[bytes], index: int) -> List[str]:
     return proof
 
 
-def generate_merkle_tree(input_data: Dict | None = None) -> Tuple[List[Dict], bytes]:
+def generate_merkle_tree(input_data: dict | None = None) -> tuple[list[dict], bytes]:
     """Generate complete Merkle tree data structure from input data."""
     if input_data is None:
         input_data = DEFAULT_INPUT
@@ -108,8 +107,8 @@ def generate_merkle_tree(input_data: Dict | None = None) -> Tuple[List[Dict], by
     inputs = []
 
     for i in range(len(input_data["values"])):
-        address = input_data["values"][str(i)]["0"]
-        amount = input_data["values"][str(i)]["1"]
+        address: str = str(input_data["values"][str(i)]["0"])
+        amount: str = str(input_data["values"][str(i)]["1"])
         leaf = generate_leaf(address, amount)
         leaves.append(leaf)
         inputs.append([address, amount])

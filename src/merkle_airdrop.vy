@@ -11,6 +11,9 @@ airdrop_token: public(immutable(address))
 # constants
 PROOF_MAX_DEPTH: constant(uint8) = max_value(uint8)
 
+# storage
+has_claimed: HashMap[address, bool]
+
 @deploy
 def __init__(_merkle_root: bytes32, _airdrop_token: address):
     merkle_root = _merkle_root
@@ -35,4 +38,8 @@ def claim(
     @param s The s value of the signature.
     @dev This function will allow users to claim their airdrop tokens.
     """
-    pass
+    assert not self.has_claimed[account], "merkle_airdrop: This account has already claimed the airdrop."
+
+    # todo: signature verification
+
+    leaf: bytes32 = keccak256(abi_encode(keccak256(abi_encode(account, amount))))

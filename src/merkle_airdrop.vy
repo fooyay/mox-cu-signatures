@@ -57,3 +57,4 @@ def claim(
     log Claimed(account, amount)
 
     success: bool = extcall airdrop_token.transfer(account, amount)
+    assert success, "merkle_airdrop: Token transfer failed."

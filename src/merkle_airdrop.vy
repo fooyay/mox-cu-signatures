@@ -73,7 +73,21 @@ def claim(
     success: bool = extcall airdrop_token.transfer(account, amount)
     assert success, "merkle_airdrop: Token transfer failed."
 
+
+@external
+@view
+def get_message_hash(account: address, amount: uint256) -> bytes32:
+    """
+    @param account The address of the account claiming the airdrop.
+    @param amount The amount of tokens being claimed.
+    @return The hash of the message that should be signed for claiming.
+    """
+    return self._get_message_hash(account, amount)
+    
+    
+
 @internal
+@view
 def _get_message_hash(account: address, amount: uint256) -> bytes32:
     """
     Get the hash of the message that should be signed for claiming.

@@ -6,6 +6,7 @@ from eth_utils import to_bytes
 proof = [
     bytes.fromhex("8ebcc963f0588d1ded1ebd0d349946755f27e95d1917f9427a207d8935e04d4b"),
     bytes.fromhex("e5ebd1e1b5a5478a944ecab36a9a954ac3b6b8216875f6524caa7a1d87096576"),
+    bytes.fromhex("23b88b20207e25c9f477a9be8f6e489e8dba58ed9349b76c49ee27f5f4e195ad"),
 ]
 
 

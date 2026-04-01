@@ -31,3 +31,26 @@ def test_user_can_claim_airdrop(merkle, token, user):
 
     ending_balance = token.balanceOf(user.address)
     assert ending_balance == starting_token_balance + DEFAULT_AMOUNT
+
+
+def test_invalid_user_cannot_claim_airdrop(merkle, token, bad_user):
+    starting_token_balance = token.balanceOf(bad_user.address)
+
+    message_hash = merkle.get_message_hash(bad_user.address, DEFAULT_AMOUNT)
+    v, r, s, _ = sign_message_hash(PrivateKey(bad_user.key), message_hash)
+
+    try:
+        merkle.claim(
+            bad_user.address,
+            DEFAULT_AMOUNT,
+            proof,
+            v,
+            to_bytes(r),
+            to_bytes(s),
+        )
+        assert False, "Expected claim to fail for invalid user"
+    except Exception as e:
+        assert "merkle_airdrop: Invalid Merkle proof." in str(e)
+
+    ending_balance = token.balanceOf(bad_user.address)
+    assert ending_balance == starting_token_balance

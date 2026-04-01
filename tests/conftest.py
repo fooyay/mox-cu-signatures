@@ -4,7 +4,8 @@ from script.deploy_merkle import deploy_merkle
 from src import snek_token
 from eth_account import Account
 
-ANVIL_KEY = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+ANVIL_KEY_0 = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+ANVIL_KEY_1 = "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d"
 ANVIL_ADDRESS = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
 
 
@@ -20,6 +21,13 @@ def token(merkle):
 
 @pytest.fixture
 def user():
-    account = Account.from_key(ANVIL_KEY)
+    account = Account.from_key(ANVIL_KEY_0)
+    with boa.env.prank(account.address):
+        yield account
+
+
+@pytest.fixture
+def bad_user():
+    account = Account.from_key(ANVIL_KEY_1)
     with boa.env.prank(account.address):
         yield account
